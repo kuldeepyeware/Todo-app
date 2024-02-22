@@ -25,7 +25,7 @@ const signInSchema = zod.object({
   password: zod.string(),
 });
 
-const requestHeader = zod.string();
+// const requestHeader = zod.string();
 
 userRouter.post("/signup", async (req: Request, res: Response) => {
   try {
@@ -102,12 +102,12 @@ userRouter.post("/me", async (req: CustomRequest, res: Response) => {
       });
     }
 
-    const { success } = requestHeader.safeParse(req.headers.authorization);
-    if (!success) {
-      return res.status(411).json({
-        message: "Invalid Input",
-      });
-    }
+    // const { success } = requestHeader.safeParse(req.headers.authorization);
+    // if (!success) {
+    //   return res.status(411).json({
+    //     message: "Invalid Input",
+    //   });
+    // }
 
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, secretKey);
