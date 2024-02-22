@@ -101,6 +101,13 @@ userRouter.post("/me", async (req: CustomRequest, res: Response) => {
     }
 
     const token = req.headers.authorization.split(" ")[1];
+
+    if (!token) {
+      return res.json({
+        message: "Invalid Token",
+      });
+    }
+
     const decoded = jwt.verify(token, secretKey);
     if ((decoded as JwtPayload).id) {
       return res.json({
@@ -112,6 +119,7 @@ userRouter.post("/me", async (req: CustomRequest, res: Response) => {
       validUser: false,
     });
   } catch (error) {
+    console.log("Error" + error);
     return res.json({
       message: "Not valid request / Not Signin",
     });
