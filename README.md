@@ -5,7 +5,7 @@
   <p align="center">A Simple Todo App is created to learn about React,Tailwind CSS, Prisma,Typescript and Postgres
     <br />
     <br />
-    <a href="">View Deployed Project</a>
+<!--     <a href="">View Deployed Project</a> -->
   </p>
 </div>
 
