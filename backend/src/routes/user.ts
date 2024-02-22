@@ -96,14 +96,20 @@ userRouter.post("/signin", async (req: Request, res: Response) => {
 
 userRouter.post("/me", async (req: CustomRequest, res: Response) => {
   try {
-    const { success } = requestHeader.safeParse(req.body.token);
+    if (!req.headers.authorization) {
+      return res.json({
+        message: "Undefined Header",
+      });
+    }
+
+    const { success } = requestHeader.safeParse(req.headers.authorization);
     if (!success) {
       return res.status(411).json({
         message: "Invalid Input",
       });
     }
 
-    const token = req.body.token.split(" ")[1];
+    const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, secretKey);
     if ((decoded as JwtPayload).id) {
       return res.json({

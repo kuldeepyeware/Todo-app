@@ -23,7 +23,7 @@ export const Todos = ({ getAllTodos, todos }: TodosPropsSmall) => {
   if (!Array.isArray(todos) || todos === null) {
     return (
       <div className='flex justify-center items-center mx-[80px] mt-10 h-[300px] text-3xl'>
-        No Tsodos Created
+        No Todos Created
       </div>
     );
   }

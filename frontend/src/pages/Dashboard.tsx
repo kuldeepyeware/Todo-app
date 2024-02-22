@@ -31,12 +31,22 @@ export const Dashboard = () => {
   const [todos, setTodos] = useState<TodosProps[] | null>(null);
   const [user, setUser] = useState<UserProps | null>(null);
 
-  const validUser = async (token: string) => {
+  const validUser = async () => {
     try {
-      const response = await axios.post(`${link}api/v1/user/me`, {
-        token,
-      });
-
+      const token = `Bearer ${localStorage.getItem("token")}`;
+      if (!token) {
+        navigate("/signin");
+      }
+      const response = await axios.post(
+        `${link}api/v1/user/me`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log(response.data.validUser);
       !response.data.validUser && navigate("/signin");
     } catch (error) {
       console.log(error);
@@ -81,9 +91,7 @@ export const Dashboard = () => {
   };
 
   useEffect(() => {
-    const token = `Bearer ${localStorage.getItem("token")}`;
-    console.log(token);
-    validUser(token);
+    validUser();
     getUser();
   }, []);
 
